@@ -1,0 +1,17 @@
+pages:
+  image: node:lts
+
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@latest-9 --activate
+    - pnpm install
+  script:
+    - pnpm build
+    - cp -a dist/. public/
+
+  artifacts:
+    paths:
+      - public
+
+  only:
+    - main
