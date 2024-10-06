@@ -32,7 +32,7 @@ function App() {
       title: "Now Testing",
       html:
         i18n.language === "ko" ? (
-          <div>
+          <div style={{ textAlign: "center", fontSize: "12px" }}>
             <p>현재 사이트 테스트중입니다.</p>
             <br />
             <p>아직 미완성이고, 충분한 보완과 테스트 과정을 거친 뒤 반영될 예정입니다.</p>
@@ -56,7 +56,7 @@ function App() {
             <br />
           </div>
         ) : (
-          <div>
+          <div style={{ textAlign: "center", fontSize: "12px" }}>
             <p>This website is under testing.</p>
             <br />
             <p>Some features are incomplete or under development. It'll be tested carefully before release.</p>
