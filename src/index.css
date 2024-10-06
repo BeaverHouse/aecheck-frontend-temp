@@ -22,3 +22,7 @@ a {
 td[class="odd"] {
   background-color: rgb(241, 241, 241);
 }
+
+.swal2-container {
+  z-index: 3000;
+}

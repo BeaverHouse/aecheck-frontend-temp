@@ -88,7 +88,7 @@ function DataLoaderModal() {
           variant="contained"
           color="warning"
           sx={{ width: "100%", mt: 1, mb: 1 }}
-          onClick={loadData}
+          onClick={() => loadData()}
         >
           LOAD
         </Button>
