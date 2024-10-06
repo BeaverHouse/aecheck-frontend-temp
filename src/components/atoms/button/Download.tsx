@@ -35,32 +35,29 @@ const DownloadButton: React.FC<DownloadProps> = ({ tag }) => {
         ignoreElements: (element) => element.id === "downloader",
       });
 
-      canvas.toBlob(async (blob) => {
-        if (!blob) return window.alert("Failed to convert image!!");
+      const body = {
+        file: canvas.toDataURL("image/jpeg"),
+      };
 
-        const formData = new FormData();
-        formData.append("file", blob);
+      const uploadURL = `https://api.haulrest.me/file/aecheck`;
+      const res = await fetch(uploadURL, {
+        mode: "no-cors",
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+        },
+      });
+      const url = ((await res.json()) as APIResponse<string>).data;
+      let link = document.createElement("a");
 
-        const uploadURL = `https://api.haulrest.me/file/aecheck`;
-        const res = await fetch(uploadURL, {
-          mode: "no-cors",
-          method: "POST",
-          body: formData,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${import.meta.env.VITE_API_KEY}`,
-          }
-        });
-        const url = ((await res.json()) as APIResponse<string>).data;
-        let link = document.createElement("a");
-  
-        document.body.appendChild(link);
-  
-        link.href = url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.click();
-      })
+      document.body.appendChild(link);
+
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.click();
     } finally {
       hideModal();
     }
