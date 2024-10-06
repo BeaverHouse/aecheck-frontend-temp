@@ -59,7 +59,7 @@ const useCheckStore = create(
           staralign: cleanNumArr(
             (data.staralign || []).filter((i) => i >= 10000)
           ),
-          buddy: cleanNumArr((data.buddy || []).filter((i) => i >= 10000)),
+          buddy: cleanNumArr((data.buddy || []).filter((i) => i < 10000)),
         });
       },
     }),

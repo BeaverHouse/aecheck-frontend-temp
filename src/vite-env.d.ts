@@ -17,6 +17,10 @@ type CheckStateV4 = {
 
 // API Data type
 
+type IDInfo = {
+  id: string;
+}
+
 type MappingInfo = {
   id: string;
   description: string;

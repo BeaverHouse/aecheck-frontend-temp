@@ -13,7 +13,7 @@ export const getShortName = (name: string, lang: string) => {
       return name;
   }
 };
-export const getNumber = (info: CharacterSummary | CharacterDetail | BuddyDetail) => {
+export const getNumber = (info: CharacterSummary | CharacterDetail | BuddyDetail | IDInfo) => {
   return Number(info.id.replace(/[^\d-]/g, ''));
 };
 

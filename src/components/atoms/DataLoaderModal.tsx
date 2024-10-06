@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Swal from "sweetalert2";
+import { getNumber } from "../../util/func";
 
 const style = {
   position: "absolute" as const,
@@ -24,7 +25,8 @@ const style = {
 
 function DataLoaderModal() {
   const { hideModal } = useModalStore();
-  const { inven, grasta, manifest, staralign, buddy, loadSaveData } = useCheckStore();
+  const { inven, grasta, manifest, staralign, buddy, loadSaveData } =
+    useCheckStore();
   const { t } = useTranslation();
 
   const [Text, setText] = React.useState(() =>
@@ -37,9 +39,29 @@ function DataLoaderModal() {
     })
   );
 
-  const loadData = () => {
+  const loadData = async () => {
     try {
       const newData: CheckStateV4 = JSON.parse(Text.trim());
+      if (!newData.buddy) {
+        const charIds = newData.inven.map(
+          (i) => `char${String(i).padStart(4, "0")}`
+        );
+        const body = {
+          characterIds: charIds,
+        };
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/buddy/partners`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+        const buddyList = (
+          (await res.json()) as APIResponse<IDInfo[]>
+        ).data.map((i) => getNumber(i));
+
+        newData.buddy = buddyList;
+      }
       loadSaveData(newData);
       Swal.fire({
         text: "Data Load Success",
@@ -54,7 +76,6 @@ function DataLoaderModal() {
         window.location.reload();
       });
     } catch (error) {
-      console.log(error);
       Swal.fire({
         text: "Data Load Error",
         width: 280,
