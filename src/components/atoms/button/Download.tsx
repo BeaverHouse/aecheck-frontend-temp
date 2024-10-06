@@ -45,13 +45,13 @@ const DownloadButton: React.FC<DownloadProps> = ({ tag }) => {
 
       const uploadURL = `https://api.haulrest.me/file/aecheck`;
       const res = await fetch(uploadURL, {
-        mode: "no-cors",
         method: "POST",
-        body: JSON.stringify(body),
         headers: {
           "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
+        body: JSON.stringify(body),
         signal: AbortSignal.timeout(10000)
       });
       const url = ((await res.json()) as APIResponse<string>).data;
