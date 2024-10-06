@@ -5,6 +5,10 @@ import useTheme from "@mui/material/styles/useTheme";
 import useModalStore from "../../../store/useModalStore";
 import Fab from "@mui/material/Fab";
 import { ModalType } from "../../../constants/enum";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+
+const AnnounceSwal = withReactContent(Swal);
 
 interface DownloadProps {
   tag: string;
@@ -48,6 +52,7 @@ const DownloadButton: React.FC<DownloadProps> = ({ tag }) => {
           "Access-Control-Allow-Origin": "*",
           Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
+        signal: AbortSignal.timeout(10000)
       });
       const url = ((await res.json()) as APIResponse<string>).data;
       let link = document.createElement("a");
@@ -58,6 +63,14 @@ const DownloadButton: React.FC<DownloadProps> = ({ tag }) => {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.click();
+    } catch (e) {
+      AnnounceSwal.fire({
+        icon: "error",
+        title: "Image Download Error",
+        text: "Please try again later.",
+        confirmButtonText: "Ok",
+        confirmButtonColor: theme.palette.primary.main,
+      })
     } finally {
       hideModal();
     }
