@@ -100,6 +100,8 @@ function CheckPage() {
         <Tabs
           variant="scrollable"
           value={lastCheckTab}
+          scrollButtons="auto"
+          allowScrollButtonsMobile
           onChange={(_, v) => updateLastCheckTab(v as CheckTabOptions)}
         >
           {Object.values(CheckTabOptions).map((option) => (
