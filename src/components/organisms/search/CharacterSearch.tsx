@@ -11,7 +11,7 @@ import {
   AELightShadow,
   AEManifestLevels,
   ModalType,
-  SearchCheckPageOptions,
+  CheckMenuOptions,
 } from "../../../constants/enum";
 import { getShortName } from "../../../util/func";
 import { useTranslation } from "react-i18next";
@@ -82,7 +82,7 @@ function CharacterSearch() {
         overflow: "auto",
       }}
     >
-      <GlobalFilter type={SearchCheckPageOptions.characters} />
+      <GlobalFilter type={CheckMenuOptions.characters} />
       <Grid container spacing={1} justifyContent="center">
         {filteredCharacters.map((info) => (
           <CharacterAvatar

@@ -1,48 +1,57 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import {
-  AnalysisPageOptions,
-  SearchCheckPageOptions,
+  AnalysisMenuOptions,
+  CheckMenuOptions,
+  CheckTabOptions,
   ThemeOptions,
 } from "../constants/enum";
 
 interface ConfigState {
   theme: ThemeOptions;
-  lastCheck: SearchCheckPageOptions;
-  lastSearch: SearchCheckPageOptions;
-  lastAnalysis: AnalysisPageOptions;
+  lastCheckMenu: CheckMenuOptions;
+  lastCheckTab: CheckTabOptions;
+  lastSearchMenu: CheckMenuOptions;
+  lastAnalysisMenu: AnalysisMenuOptions;
   toggleTheme: (theme: ThemeOptions) => void;
-  updateLastCheck: (option: SearchCheckPageOptions) => void;
-  updateLastSearch: (option: SearchCheckPageOptions) => void;
-  updateLastAnalysis: (option: AnalysisPageOptions) => void;
+  updateLastCheckMenu: (option: CheckMenuOptions) => void;
+  updateLastCheckTab: (option: CheckTabOptions) => void;
+  updateLastSearchMenu: (option: CheckMenuOptions) => void;
+  updateLastAnalysisMenu: (option: AnalysisMenuOptions) => void;
 }
 
 const useConfigStore = create(
   persist<ConfigState>(
     (set) => ({
       theme: ThemeOptions.light,
-      lastCheck: SearchCheckPageOptions.characters,
-      lastSearch: SearchCheckPageOptions.characters,
-      lastAnalysis: AnalysisPageOptions.stardream,
+      lastCheckMenu: CheckMenuOptions.characters,
+      lastCheckTab: CheckTabOptions.inven,
+      lastSearchMenu: CheckMenuOptions.characters,
+      lastAnalysisMenu: AnalysisMenuOptions.stardream,
       toggleTheme: (theme) =>
         set((state) => ({
           ...state,
           theme: theme,
         })),
-      updateLastCheck: (option) =>
+      updateLastCheckMenu: (option) =>
         set((state) => ({
           ...state,
-          lastCheck: option,
+          lastCheckMenu: option,
         })),
-      updateLastSearch: (option) =>
+      updateLastCheckTab: (option) =>
         set((state) => ({
           ...state,
-          lastSearch: option,
+          lastCheckTab: option,
         })),
-      updateLastAnalysis: (option) =>
+      updateLastSearchMenu: (option) =>
         set((state) => ({
           ...state,
-          lastAnalysis: option,
+          lastSearchMenu: option,
+        })),
+      updateLastAnalysisMenu: (option) =>
+        set((state) => ({
+          ...state,
+          lastAnalysisMenu: option,
         })),
     }),
     {

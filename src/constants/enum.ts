@@ -16,12 +16,19 @@ export const LanguageOptions = {
   ja: "ja",
 } as const;
 
-export const SearchCheckPageOptions = {
+export const CheckMenuOptions = {
   characters: "characters",
   buddies: "buddies",
 } as const;
 
-export const AnalysisPageOptions = {
+export const CheckTabOptions = {
+  inven: "inven",
+  manifest: "manifest",
+  grasta: "grasta",
+  staralign: "staralign",
+} as const;
+
+export const AnalysisMenuOptions = {
   stardream: "stardream",
   whitekey: "whitekey",
   legacy: "legacy",
@@ -40,10 +47,12 @@ export type ThemeOptions = (typeof ThemeOptions)[keyof typeof ThemeOptions];
 export type LanguageOptions =
   (typeof LanguageOptions)[keyof typeof LanguageOptions];
 
-export type SearchCheckPageOptions =
-  (typeof SearchCheckPageOptions)[keyof typeof SearchCheckPageOptions];
-export type AnalysisPageOptions =
-  (typeof AnalysisPageOptions)[keyof typeof AnalysisPageOptions];
+export type CheckMenuOptions =
+  (typeof CheckMenuOptions)[keyof typeof CheckMenuOptions];
+export type CheckTabOptions =
+  (typeof CheckTabOptions)[keyof typeof CheckTabOptions];
+export type AnalysisMenuOptions =
+  (typeof AnalysisMenuOptions)[keyof typeof AnalysisMenuOptions];
 export type ModalType = (typeof ModalType)[keyof typeof ModalType];
 
 // Filter enums

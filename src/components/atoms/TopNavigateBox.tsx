@@ -4,9 +4,9 @@ import useConfigStore from "../../store/useConfigStore";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {
-  AnalysisPageOptions,
+  AnalysisMenuOptions,
   MenuOptions,
-  SearchCheckPageOptions,
+  CheckMenuOptions,
 } from "../../constants/enum";
 import { Link } from "react-router-dom";
 import Divider from "@mui/material/Divider";
@@ -15,12 +15,12 @@ import Typography from "@mui/material/Typography";
 const TopNavigateBox: React.FC = () => {
   const { t } = useTranslation();
   const {
-    lastCheck,
-    lastSearch,
-    lastAnalysis,
-    updateLastCheck,
-    updateLastSearch,
-    updateLastAnalysis,
+    lastCheckMenu,
+    lastSearchMenu,
+    lastAnalysisMenu,
+    updateLastCheckMenu,
+    updateLastSearchMenu,
+    updateLastAnalysisMenu,
   } = useConfigStore();
 
   const path = window.location.pathname;
@@ -29,26 +29,26 @@ const TopNavigateBox: React.FC = () => {
   if (category !== MenuOptions.check && category !== MenuOptions.search && category !== MenuOptions.analysis) return null;
 
   const currentOption = {
-    [MenuOptions.analysis]: lastAnalysis,
-    [MenuOptions.search]: lastSearch,
-    [MenuOptions.check]: lastCheck,
+    [MenuOptions.analysis]: lastAnalysisMenu,
+    [MenuOptions.search]: lastSearchMenu,
+    [MenuOptions.check]: lastCheckMenu,
   }[category];
   const options =
     category === MenuOptions.analysis
-      ? AnalysisPageOptions
-      : SearchCheckPageOptions;
+      ? AnalysisMenuOptions
+      : CheckMenuOptions;
 
   const handleChange = (e: SelectChangeEvent) => {
     const value = e.target.value;
     switch (category) {
       case MenuOptions.check:
-        updateLastCheck(value as SearchCheckPageOptions);
+        updateLastCheckMenu(value as CheckMenuOptions);
         break;
       case MenuOptions.search:
-        updateLastSearch(value as SearchCheckPageOptions);
+        updateLastSearchMenu(value as CheckMenuOptions);
         break;
       case MenuOptions.analysis:
-        updateLastAnalysis(value as AnalysisPageOptions);
+        updateLastAnalysisMenu(value as AnalysisMenuOptions);
         break;
     }
   };

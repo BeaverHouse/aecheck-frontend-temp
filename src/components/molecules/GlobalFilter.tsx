@@ -3,12 +3,12 @@ import React from "react";
 import useModalStore from "../../store/useModalStore";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import Box from "@mui/material/Box";
-import { ModalType, SearchCheckPageOptions } from "../../constants/enum";
+import { ModalType, CheckMenuOptions } from "../../constants/enum";
 import SearchField from "../atoms/SearchField";
 import { useTranslation } from "react-i18next";
 
 interface GlobalFilterProps {
-    type: SearchCheckPageOptions;
+    type: CheckMenuOptions;
 }
 
 const GlobalFilter: React.FC<GlobalFilterProps> = ({ type }) => {
@@ -28,7 +28,7 @@ const GlobalFilter: React.FC<GlobalFilterProps> = ({ type }) => {
         flexWrap: "wrap",
       }}
     >
-      {type !== SearchCheckPageOptions.buddies ? (
+      {type !== CheckMenuOptions.buddies ? (
         <IconButton
           aria-label="Filter Button"
           onClick={() => setModal(ModalType.filter)}

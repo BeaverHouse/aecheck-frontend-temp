@@ -1,5 +1,5 @@
 import useConfigStore from "../../store/useConfigStore";
-import { AnalysisPageOptions } from "../../constants/enum";
+import { AnalysisMenuOptions } from "../../constants/enum";
 import { MainWrapperSx } from "../../constants/style";
 import StardreamAnalysis from "../organisms/analysis/StardreamAnalysis";
 import { useQuery } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import LegacyTableAnalysis from "../organisms/analysis/LegacyTableAnalysis";
 import Loading from "../atoms/Loading";
 
 function AnalysisPage() {
-  const { lastAnalysis } = useConfigStore();
+  const { lastAnalysisMenu } = useConfigStore();
   const { isPending, error, data } = useQuery({
     queryKey: ["getCharacters"],
     queryFn: () =>
@@ -25,14 +25,14 @@ function AnalysisPage() {
   const allCharacters = (data as APIResponse<CharacterSummary[]>).data;
 
   const component = () => {
-    switch (lastAnalysis) {
-      case AnalysisPageOptions.stardream:
+    switch (lastAnalysisMenu) {
+      case AnalysisMenuOptions.stardream:
         return <StardreamAnalysis allCharacters={allCharacters} />;
-      case AnalysisPageOptions.whitekey:
+      case AnalysisMenuOptions.whitekey:
         return <WhiteKeyAnalysis allCharacters={allCharacters} />;
-      case AnalysisPageOptions.legacy:
+      case AnalysisMenuOptions.legacy:
         return <LegacyAnalysis allCharacters={allCharacters} />;
-      case AnalysisPageOptions.legacyTable:
+      case AnalysisMenuOptions.legacyTable:
         return <LegacyTableAnalysis allCharacters={allCharacters} />;
     }
   }

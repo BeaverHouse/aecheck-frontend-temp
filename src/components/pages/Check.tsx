@@ -13,19 +13,21 @@ import {
   AECharacterStyles,
   AELightShadow,
   AEManifestLevels,
-  SearchCheckPageOptions,
+  CheckMenuOptions,
+  CheckTabOptions,
 } from "../../constants/enum";
 import { MainWrapperSx } from "../../constants/style";
 import GlobalFilter from "../molecules/GlobalFilter";
 import useFilterStore from "../../store/useFilterStore";
 import { useTranslation } from "react-i18next";
 import Loading from "../atoms/Loading";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { arrAllIncludes, arrOverlap } from "../../util/arrayUtil";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { Box } from "@mui/material";
 
 function CheckPage() {
-  const { lastCheck } = useConfigStore();
-  const isLargeScreen = useMediaQuery("(min-width:900px)");
+  const { lastCheckMenu, lastCheckTab, updateLastCheckTab } = useConfigStore();
   const { t } = useTranslation();
   const {
     styleFilter,
@@ -73,34 +75,47 @@ function CheckPage() {
       t(char.code).toLowerCase().includes(searchWord.toLowerCase())
   );
 
-  const gridStyle: React.CSSProperties = isLargeScreen
-    ? {
-        display: "grid",
-        gridTemplateColumns: "2fr 3fr",
-        gridTemplateRows: "repeat(3, minmax(270px, 1fr))",
-        gridGap: "1rem",
-        maxHeight: "810px",
-      }
-    : {
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        gridAutoRows: "minmax(0, 500px)",
-        gridGap: "1rem",
-      };
 
-  return lastCheck === SearchCheckPageOptions.characters ? (
+  const component = () => {
+    switch (lastCheckTab) {
+      case CheckTabOptions.inven:
+        return (
+          <CharacterDashboard {...{ allCharacters, filteredCharacters }} />
+        );
+      case CheckTabOptions.manifest:
+        return <ManifestDashboard {...{ allCharacters, filteredCharacters }} />;
+      case CheckTabOptions.grasta:
+        return <GrastaDashboard {...{ allCharacters, filteredCharacters }} />;
+      case CheckTabOptions.staralign:
+        return (
+          <StaralignDashboard {...{ allCharacters, filteredCharacters }} />
+        );
+    }
+  };
+
+  return lastCheckMenu === CheckMenuOptions.characters ? (
     <>
-      <GlobalFilter type={SearchCheckPageOptions.characters} />
-      <div style={gridStyle}>
-        <CharacterDashboard {...{ allCharacters, filteredCharacters }} />
-        <ManifestDashboard {...{ allCharacters, filteredCharacters }} />
-        <GrastaDashboard {...{ allCharacters, filteredCharacters }} />
-        <StaralignDashboard {...{ allCharacters, filteredCharacters }} />
-      </div>
+      <GlobalFilter type={CheckMenuOptions.characters} />
+      <Box display="flex" justifyContent="center" width="100%" m={2}>
+        <Tabs
+          variant="scrollable"
+          value={lastCheckTab}
+          onChange={(_, v) => updateLastCheckTab(v as CheckTabOptions)}
+        >
+          {Object.values(CheckTabOptions).map((option) => (
+            <Tab
+              key={option}
+              value={option}
+              label={t(`frontend.word.${option}`)}
+            />
+          ))}
+        </Tabs>
+      </Box>
+      {component()}
     </>
   ) : (
     <>
-      <GlobalFilter type={SearchCheckPageOptions.buddies} />
+      <GlobalFilter type={CheckMenuOptions.buddies} />
       <Grid container spacing={1} sx={MainWrapperSx}>
         <BuddyDashboard />
       </Grid>

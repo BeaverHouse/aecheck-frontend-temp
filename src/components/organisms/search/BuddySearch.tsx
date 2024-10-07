@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import BuddyCard from "../../atoms/BuddyCard";
 import useFilterStore from "../../../store/useFilterStore";
 import GlobalFilter from "../../molecules/GlobalFilter";
-import { SearchCheckPageOptions } from "../../../constants/enum";
+import { CheckMenuOptions } from "../../../constants/enum";
 import Loading from "../../atoms/Loading";
 
 function BuddySearch() {
@@ -37,7 +37,7 @@ function BuddySearch() {
         overflow: "auto",
       }}
     >
-      <GlobalFilter type={SearchCheckPageOptions.buddies} />
+      <GlobalFilter type={CheckMenuOptions.buddies} />
       <Grid container spacing={1} justifyContent="center">
         {filteredBuddies.map((info) => (
           <BuddyCard key={info.id} info={info} onClick={() => {}} />
