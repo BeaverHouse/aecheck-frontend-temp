@@ -18,7 +18,8 @@ import dayjs from "dayjs";
 import { InvenStatus, LanguageOptions } from "../../../constants/enum";
 import Link from "@mui/material/Link";
 import { getNumber } from "../../../util/func";
-import { SxProps, Theme, useMediaQuery } from "@mui/material";
+import { SxProps, Theme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const style: SxProps<Theme> = {
   position: "absolute" as const,
@@ -59,7 +60,6 @@ const CharacterModal: React.FC = () => {
         `${import.meta.env.VITE_API_URL}/character/related/${characterID}`
       ).then((res) => res.json()),
   });
-  
 
   if (characterDetailQuery.isPending || relatedCharacterQuery.isPending) {
     return (
@@ -70,13 +70,17 @@ const CharacterModal: React.FC = () => {
   } else if (characterDetailQuery.isError) {
     return (
       <Modal open={true} disableScrollLock={true} onClose={hideModal}>
-        <Box sx={style}>An error has occurred: {characterDetailQuery.error.message}</Box>
+        <Box sx={style}>
+          An error has occurred: {characterDetailQuery.error.message}
+        </Box>
       </Modal>
     );
   } else if (relatedCharacterQuery.isError) {
     return (
       <Modal open={true} disableScrollLock={true} onClose={hideModal}>
-        <Box sx={style}>An error has occurred: {relatedCharacterQuery.error.message}</Box>
+        <Box sx={style}>
+          An error has occurred: {relatedCharacterQuery.error.message}
+        </Box>
       </Modal>
     );
   }
@@ -204,7 +208,8 @@ const CharacterModal: React.FC = () => {
             </Typography>
           </Box>
         ) : null}
-        {currentManifestStep === characterData.maxManifest && characterData.maxManifest > 0 ? (
+        {currentManifestStep === characterData.maxManifest &&
+        characterData.maxManifest > 0 ? (
           <Box
             sx={{
               display: "flex",

@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import CharacterAvatar from "../../atoms/character/Avatar";
 import useModalStore from "../../../store/useModalStore";
@@ -19,6 +18,8 @@ import GlobalFilter from "../../molecules/GlobalFilter";
 import useFilterStore from "../../../store/useFilterStore";
 import Loading from "../../atoms/Loading";
 import { arrAllIncludes, arrOverlap } from "../../../util/arrayUtil";
+import { VirtuosoGrid } from "react-virtuoso";
+import { GridList } from "../../../constants/style";
 
 function CharacterSearch() {
   const { t, i18n } = useTranslation();
@@ -83,15 +84,24 @@ function CharacterSearch() {
       }}
     >
       <GlobalFilter type={CheckMenuOptions.characters} />
-      <Grid container spacing={1} justifyContent="center">
-        {filteredCharacters.map((info) => (
+      <VirtuosoGrid
+        style={{
+          flexGrow: 1,
+          width: "100%",
+          height: 600,
+        }}
+        components={{
+          List: GridList,
+        }}
+        data={filteredCharacters}
+        itemContent={(_, char) => (
           <CharacterAvatar
-            info={info}
+            info={char}
             disableShadow={false}
-            onClick={() => setModal(ModalType.character, info.id)}
+            onClick={() => setModal(ModalType.character, char.id)}
           />
-        ))}
-      </Grid>
+        )}
+      />
     </Box>
   );
 }

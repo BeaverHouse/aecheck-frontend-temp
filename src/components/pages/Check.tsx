@@ -24,7 +24,7 @@ import Loading from "../atoms/Loading";
 import { arrAllIncludes, arrOverlap } from "../../util/arrayUtil";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
 function CheckPage() {
   const { lastCheckMenu, lastCheckTab, updateLastCheckTab } = useConfigStore();
@@ -74,7 +74,6 @@ function CheckPage() {
       (!dungeon || char.dungeons.map((d) => d.id).includes(dungeon)) &&
       t(char.code).toLowerCase().includes(searchWord.toLowerCase())
   );
-
 
   const component = () => {
     switch (lastCheckTab) {

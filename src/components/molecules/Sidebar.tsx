@@ -14,7 +14,6 @@ import IconButton from "@mui/material/IconButton";
 import SaveIcon from "@mui/icons-material/Save";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTranslation } from "react-i18next";
-import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LanguageButton from "../atoms/button/Language";
 import HomeIcon from "@mui/icons-material/Home";
@@ -22,6 +21,7 @@ import useModalStore from "../../store/useModalStore";
 import { FlexCenter } from "../../constants/style";
 import { MenuOptions, ModalType } from "../../constants/enum";
 import { AppInfo } from "../../constants";
+import Typography from "@mui/material/Typography";
 
 function AECheckSidebar() {
   const [open, setOpen] = React.useState(false);

@@ -5,7 +5,8 @@ import useFilterStore from "../../store/useFilterStore";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
 import { useQuery } from "@tanstack/react-query";
-import { Box, CircularProgress } from "@mui/material";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // https://github.com/i18next/react-i18next/issues/1543
 

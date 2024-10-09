@@ -1,5 +1,4 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
 import ScrollTop from "./components/atoms/button/ScrollTop";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -10,6 +9,7 @@ import CheckPage from "./components/pages/Check";
 import SearchPage from "./components/pages/Search";
 import AnalysisPage from "./components/pages/Analysis";
 import LinkPage from "./components/pages/Link";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const router = createBrowserRouter([
   {

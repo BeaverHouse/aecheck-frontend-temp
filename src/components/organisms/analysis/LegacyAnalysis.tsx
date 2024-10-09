@@ -29,7 +29,8 @@ const LegacyAnalysis: React.FC<AnalysisProps> = ({ allCharacters }) => {
   const { t } = useTranslation();
 
   const baseCharacters = allCharacters
-    .filter((char) => getNumber(char) < 1000);
+    .filter((char) => getNumber(char) < 1000)
+    .sort((a, b) => a.id.localeCompare(b.id));
 
   /**
    * 1. 없어야 함
@@ -126,7 +127,8 @@ const LegacyAnalysis: React.FC<AnalysisProps> = ({ allCharacters }) => {
                     alignItems: "center",
                   }}
                 >
-                  {t(`frontend.category.${category.toLowerCase()}`)} ({filtered.length})
+                  {t(`frontend.category.${category.toLowerCase()}`)} (
+                  {filtered.length})
                 </Typography>
                 <Suspense fallback={<CircularProgress sx={{ margin: 10 }} />}>
                   <Box
@@ -180,7 +182,8 @@ const LegacyAnalysis: React.FC<AnalysisProps> = ({ allCharacters }) => {
                     alignItems: "center",
                   }}
                 >
-                  {t(`frontend.category.${category.toLowerCase()}`)} ({filtered.length})
+                  {t(`frontend.category.${category.toLowerCase()}`)} (
+                  {filtered.length})
                 </Typography>
                 <Suspense fallback={<CircularProgress sx={{ margin: 10 }} />}>
                   <Box
@@ -220,9 +223,7 @@ const LegacyAnalysis: React.FC<AnalysisProps> = ({ allCharacters }) => {
         <AccordionDetails sx={{ p: 1, textAlign: "center" }}>
           {Object.values(AECharacterStyles).map((style) => {
             if (style === AECharacterStyles.four) return null;
-            const filtered = ccAvailable.filter(
-              (char) => char.style === style
-            );
+            const filtered = ccAvailable.filter((char) => char.style === style);
             return filtered.length > 0 ? (
               <>
                 <Typography
