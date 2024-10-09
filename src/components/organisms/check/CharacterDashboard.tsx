@@ -1,5 +1,4 @@
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid2";
 import InvenFilterButton from "../../atoms/button/InvenFilter";
 import { useTranslation } from "react-i18next";
 import useFilterStore from "../../../store/useFilterStore";
@@ -11,6 +10,26 @@ import { FlexCenter } from "../../../constants/style";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
+import { GridComponents, VirtuosoGrid } from "react-virtuoso";
+import React from "react";
+
+const GridList: GridComponents["List"] = React.forwardRef(
+  ({ style, children }, ref) => {
+    return (
+      <div
+        ref={ref}
+        style={{
+          ...FlexCenter,
+          flexWrap: "wrap",
+          gap: "10px",
+          ...style,
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 function CharacterDashboard({
   allCharacters,
@@ -160,25 +179,25 @@ function CharacterDashboard({
         </Button>
       </Box>
       <Divider sx={{ mt: 1, mb: 1 }} />
-      <Box
-        sx={{
+      <VirtuosoGrid
+        style={{
           flexGrow: 1,
-          p: 1,
           width: "100%",
-          overflow: "auto",
+          height: 500,
         }}
-      >
-        <Grid container spacing={1} justifyContent="center">
-          {targetCharacters.map((char) => (
-            <CharacterAvatar
-              key={`char-${char.id}`}
-              info={char}
-              disableShadow={false}
-              onClick={() => toggleSingleInven(char)}
-            />
-          ))}
-        </Grid>
-      </Box>
+        components={{
+          List: GridList,
+        }}
+        data={targetCharacters}
+        itemContent={(_, char) => (
+          <CharacterAvatar
+            key={`char-${char.id}`}
+            info={char}
+            disableShadow={false}
+            onClick={() => toggleSingleInven(char)}
+          />
+        )}
+      />
     </Container>
   );
 }
