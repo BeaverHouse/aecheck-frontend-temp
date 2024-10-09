@@ -6,30 +6,10 @@ import useCheckStore from "../../../store/useCheckStore";
 import { getNumber, getInvenStatus, getShortName } from "../../../util/func";
 import { AECharacterStyles } from "../../../constants/enum";
 import CharacterAvatar from "../../atoms/character/Avatar";
-import { FlexCenter } from "../../../constants/style";
+import { FlexCenter, GridList } from "../../../constants/style";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import { GridComponents, VirtuosoGrid } from "react-virtuoso";
-import React from "react";
-
-const GridList: GridComponents["List"] = React.forwardRef(
-  ({ style, children }, ref) => {
-    return (
-      <div
-        ref={ref}
-        style={{
-          ...FlexCenter,
-          flexWrap: "wrap",
-          gap: "10px",
-          ...style,
-        }}
-      >
-        {children}
-      </div>
-    );
-  }
-);
+import { VirtuosoGrid } from "react-virtuoso";
 
 function CharacterDashboard({
   allCharacters,
@@ -159,7 +139,7 @@ function CharacterDashboard({
         padding: "5px",
       }}
     >
-      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
         <InvenFilterButton />
         <Button
           variant="contained"
@@ -178,7 +158,6 @@ function CharacterDashboard({
           CHECK ALL
         </Button>
       </Box>
-      <Divider sx={{ mt: 1, mb: 1 }} />
       <VirtuosoGrid
         style={{
           flexGrow: 1,

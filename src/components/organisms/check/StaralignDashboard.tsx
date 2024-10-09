@@ -1,14 +1,12 @@
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid2";
 import { useTranslation } from "react-i18next";
 import useFilterStore from "../../../store/useFilterStore";
 import useCheckStore from "../../../store/useCheckStore";
 import { getNumber, getShortName, getStep } from "../../../util/func";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { FlexCenter } from "../../../constants/style";
+import { FlexCenter, GridList } from "../../../constants/style";
 import CharacterStaralign from "../../molecules/character/Staralign";
 import StaralignFilterButton from "../../atoms/button/StaralignFilter";
+import { VirtuosoGrid } from "react-virtuoso";
 
 function StaralignDashboard({ filteredCharacters }: DashboardProps) {
   const { t, i18n } = useTranslation();
@@ -31,28 +29,25 @@ function StaralignDashboard({ filteredCharacters }: DashboardProps) {
       sx={{
         ...FlexCenter,
         flexDirection: "column",
-        border: "gray 1px solid",
         height: "100%",
         padding: "2px",
       }}
     >
-      <Typography variant="h6" component="div">
-        {t("frontend.word.staralign")}
-      </Typography>
       <StaralignFilterButton />
-      <Box
-        sx={{
+      <VirtuosoGrid
+        style={{
           flexGrow: 1,
-          p: 1,
-          overflow: "auto",
+          width: "100%",
+          height: 500,
         }}
-      >
-        <Grid container spacing={1} justifyContent="center">
-          {targetCharacters.map((char) => (
-            <CharacterStaralign key={`align-${char.id}`} {...char} />
-          ))}
-        </Grid>
-      </Box>
+        components={{
+          List: GridList,
+        }}
+        data={targetCharacters}
+        itemContent={(_, char) => (
+          <CharacterStaralign key={`align-${char.id}`} {...char} />
+        )}
+      />
     </Container>
   );
 }
