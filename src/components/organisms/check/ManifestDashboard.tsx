@@ -3,12 +3,12 @@ import Grid from "@mui/material/Grid2";
 import { useTranslation } from "react-i18next";
 import useFilterStore from "../../../store/useFilterStore";
 import useCheckStore from "../../../store/useCheckStore";
-import { getManifestStatus, getShortName } from "../../../util/func";
-import Typography from "@mui/material/Typography";
+import { getManifestStatus, getNumber, getShortName } from "../../../util/func";
 import CharacterManifest from "../../molecules/character/Manifest";
 import Box from "@mui/material/Box";
 import { FlexCenter } from "../../../constants/style";
 import ManifestFilterButton from "../../atoms/button/ManifestFilter";
+import Button from "@mui/material/Button";
 
 function ManifestDashboard({
   allCharacters,
@@ -16,7 +16,7 @@ function ManifestDashboard({
 }: DashboardProps) {
   const { t, i18n } = useTranslation();
   const { manifestStatusFilter } = useFilterStore();
-  const { inven, manifest } = useCheckStore();
+  const { inven, manifest, setManifest } = useCheckStore();
 
   const targetCharacters = filteredCharacters
     .filter((char) => char.maxManifest > 0)
@@ -31,6 +31,29 @@ function ManifestDashboard({
       )
     );
 
+  const checkAll = () => {
+    const ids = targetCharacters.map((char) => getNumber(char));
+
+    const newManifest = [
+      ...manifest.filter((i) => !ids.includes(i % 10000)),
+      ...targetCharacters
+        .filter(
+          (char) => char.maxManifest > 0 && inven.includes(getNumber(char))
+        )
+        .map((char) => char.maxManifest * 10000 + getNumber(char)),
+    ];
+
+    setManifest(newManifest);
+  };
+
+  const uncheckAll = () => {
+    const ids = targetCharacters.map((char) => getNumber(char));
+
+    const newManifest = [...manifest.filter((i) => !ids.includes(i % 10000))];
+
+    setManifest(newManifest);
+  };
+
   return (
     <Container
       sx={{
@@ -41,10 +64,25 @@ function ManifestDashboard({
         padding: "2px",
       }}
     >
-      <Typography variant="h6" component="div">
-        {t("frontend.manifest.step1")}
-      </Typography>
-      <ManifestFilterButton />
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
+        <ManifestFilterButton />
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ m: 0.5 }}
+          onClick={() => uncheckAll()}
+        >
+          CLEAR ALL
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          sx={{ m: 0.5 }}
+          onClick={() => checkAll()}
+        >
+          CHECK ALL
+        </Button>
+      </Box>
       <Box
         sx={{
           flexGrow: 1,

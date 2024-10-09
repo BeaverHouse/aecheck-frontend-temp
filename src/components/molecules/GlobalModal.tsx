@@ -4,8 +4,7 @@ import useModalStore from "../../store/useModalStore";
 import { ModalType } from "../../constants/enum";
 import DataLoaderModal from "../atoms/DataLoaderModal";
 import FilterModal from "../atoms/FilterModal";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
+import Loading from "../atoms/Loading";
 
 interface GlobalModalProps {
   type: ModalType | undefined;
@@ -38,16 +37,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({ type }) => {
       case ModalType.filter:
         return <FilterModal />;
       case ModalType.loading:
-        return (
-          <Backdrop
-            sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
-            open={true}
-          >
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        );
-      default:
-        return null;
+        return <Loading />;
     }
   }
 };
