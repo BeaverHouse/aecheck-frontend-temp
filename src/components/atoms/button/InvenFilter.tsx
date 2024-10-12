@@ -10,7 +10,7 @@ function InvenFilterButton() {
 
   return (
     <ToggleButtonGroup
-        color="primary"
+      color="primary"
       size="small"
       value={invenStatusFilter}
       onChange={(_, v) => setInvenStatusFilter(v as InvenStatus[])}

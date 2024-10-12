@@ -14,13 +14,13 @@ function GrastaFilterButton() {
       sx={{ m: 1 }}
     >
       {[0, 1, 2].map((option) => (
-        <ToggleButton key={option} value={option}>
-        <img
-          src={`${import.meta.env.VITE_CDN_URL}/icon/grasta${option}.png`}
-          alt={`${option}`}
-          width={33}
-          height={33}
-        />
+        <ToggleButton key={option} value={option} sx={{ p: 0.28 }}>
+          <img
+            src={`${import.meta.env.VITE_CDN_URL}/icon/grasta${option}.png`}
+            alt={`${option}`}
+            width={33}
+            height={33}
+          />
         </ToggleButton>
       ))}
     </ToggleButtonGroup>
