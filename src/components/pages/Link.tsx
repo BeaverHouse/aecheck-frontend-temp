@@ -47,7 +47,7 @@ function LinkPage() {
         <Button
           variant="outlined"
           color="secondary"
-          sx={{ width: 270, mb: 1.5, display: "flex" }}
+          sx={{ width: "100%", maxWidth: 400, mb: 1.5, display: "flex" }}
           aria-label={data.label}
           href={data.link}
           target="_blank"
