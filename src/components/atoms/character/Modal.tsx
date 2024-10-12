@@ -335,6 +335,53 @@ const CharacterModal: React.FC = () => {
               ))}
           </Box>
         </Box>
+        {characterData.buddy ? (
+          <Box
+            sx={{
+              display: "flex",
+              wordBreak: "keep-all",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: isMobile ? "column" : "row",
+              mb: 2,
+              mt: 2,
+            }}
+          >
+            <Typography variant="subtitle2" component="h2" sx={{ m: 0.5 }}>
+              {t(`frontend.word.buddy`)}
+            </Typography>
+            <Box sx={{ flexGrow: 1, textAlign: "center" }}>
+              <picture>
+                <source
+                  srcSet={`${import.meta.env.VITE_CDN_URL}/buddy/${
+                    characterData.buddy.id
+                  }.webp`}
+                  type="image/webp"
+                />
+                <img
+                  src={`${import.meta.env.VITE_CDN_URL}/buddy/${
+                    characterData.buddy.id
+                  }.png`}
+                  alt={characterData.buddy.id}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    border: "1px solid lightgray",
+                    borderRadius: "5px",
+                    pointerEvents: "none",
+                  }}
+                />
+              </picture>
+              <Typography
+                variant="subtitle2"
+                component="h2"
+              >
+                {t(characterData.buddy.id)}
+              </Typography>
+            </Box>
+          </Box>
+        ) : null}
         {bookName !== "N/A" ? (
           <Box
             sx={{
@@ -342,7 +389,6 @@ const CharacterModal: React.FC = () => {
               width: "100%",
               flexDirection: isMobile ? "column" : "row",
               alignItems: "center",
-              mt: 2,
             }}
           >
             <Box
