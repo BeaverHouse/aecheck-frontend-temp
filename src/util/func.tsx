@@ -45,7 +45,7 @@ export const getInvenStatus = (
   const related = relatedCharacters.filter(
     (c) => c.code === character.code || c.alterCharacter === character.code
   )
-  if (related.filter((c) => inven.includes(getNumber(c))).length > 0) {
+  if (related.filter((c) => inven.includes(getNumber(c))).length > 0 && character.style !== AECharacterStyles.four) {
     return InvenStatus.ccRequired;
   } else {
     return InvenStatus.notOwned;
