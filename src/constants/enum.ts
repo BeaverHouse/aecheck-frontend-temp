@@ -10,6 +10,12 @@ export const ThemeOptions = {
   light: "light",
 } as const;
 
+export const PopupOnCheckOptions = {
+  none: "none",
+  fourOnly: "four-only",
+  all: "all",
+} as const;
+
 export const LanguageOptions = {
   ko: "ko",
   en: "en",
@@ -44,6 +50,8 @@ export const ModalType = {
 
 export type MenuOptions = (typeof MenuOptions)[keyof typeof MenuOptions];
 export type ThemeOptions = (typeof ThemeOptions)[keyof typeof ThemeOptions];
+export type PopupOnCheckOptions =
+  (typeof PopupOnCheckOptions)[keyof typeof PopupOnCheckOptions];
 export type LanguageOptions =
   (typeof LanguageOptions)[keyof typeof LanguageOptions];
 

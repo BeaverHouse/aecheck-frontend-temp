@@ -95,7 +95,7 @@ function CheckPage() {
   return lastCheckMenu === CheckMenuOptions.characters ? (
     <>
       <GlobalFilter type={CheckMenuOptions.characters} />
-      <Box display="flex" justifyContent="center" width="100%" m={2}>
+      <Box display="flex" justifyContent="center" width="100%">
         <Tabs
           variant="scrollable"
           value={lastCheckTab}

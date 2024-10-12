@@ -273,7 +273,7 @@ const CharacterModal: React.FC = () => {
           <Typography variant="subtitle2" component="h2" sx={{ m: 0.5 }}>
             {t(`frontend.word.element`)}
           </Typography>
-          <Box sx={{ flexGrow: 1, m: 0.5 }}>
+          <Box sx={{ flexGrow: 1, m: 0.5, textAlign: "center" }}>
             {characterData.personalities
               .filter((p) => p.id.startsWith("personality00"))
               .map((p) => (
@@ -291,7 +291,7 @@ const CharacterModal: React.FC = () => {
           <Typography variant="subtitle2" component="h2" sx={{ m: 0.5 }}>
             {t(`frontend.word.weapon`)}
           </Typography>
-          <Box sx={{ flexGrow: 1, m: 0.5 }}>
+          <Box sx={{ flexGrow: 1, m: 0.5, textAlign: "center" }}>
             {characterData.personalities
               .filter((p) => p.id.startsWith("personality01"))
               .map((p) => (
@@ -373,10 +373,7 @@ const CharacterModal: React.FC = () => {
                   }}
                 />
               </picture>
-              <Typography
-                variant="subtitle2"
-                component="h2"
-              >
+              <Typography variant="subtitle2" component="h2">
                 {t(characterData.buddy.id)}
               </Typography>
             </Box>
@@ -389,6 +386,7 @@ const CharacterModal: React.FC = () => {
               width: "100%",
               flexDirection: isMobile ? "column" : "row",
               alignItems: "center",
+              mt: 1,
             }}
           >
             <Box
@@ -437,6 +435,7 @@ const CharacterModal: React.FC = () => {
                     display: "flex",
                     textAlign: "center",
                     alignItems: "center",
+                    m: 0.5,
                   }}
                 >
                   <Typography

@@ -8,7 +8,7 @@ import {
   getShortName,
   getStep,
 } from "../../../util/func";
-import { FlexCenter, GridList } from "../../../constants/style";
+import { DashboardWrapperSx, FlexCenter, GridList } from "../../../constants/style";
 import CharacterGrasta from "../../molecules/character/Grasta";
 import GrastaFilterButton from "../../atoms/button/GrastaFilter";
 import { VirtuosoGrid } from "react-virtuoso";
@@ -62,15 +62,7 @@ function GrastaDashboard({
   };
 
   return (
-    <Container
-      sx={{
-        ...FlexCenter,
-        flexDirection: "column",
-        border: "gray 1px solid",
-        height: "100%",
-        padding: "2px",
-      }}
-    >
+    <Container sx={DashboardWrapperSx}>
       <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
         <GrastaFilterButton />
         <InvenFilterButton />

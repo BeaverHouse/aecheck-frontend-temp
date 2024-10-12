@@ -5,7 +5,7 @@ import useCheckStore from "../../../store/useCheckStore";
 import { getManifestStatus, getNumber, getShortName } from "../../../util/func";
 import CharacterManifest from "../../molecules/character/Manifest";
 import Box from "@mui/material/Box";
-import { FlexCenter, GridList } from "../../../constants/style";
+import { DashboardWrapperSx, FlexCenter, GridList } from "../../../constants/style";
 import ManifestFilterButton from "../../atoms/button/ManifestFilter";
 import Button from "@mui/material/Button";
 import { VirtuosoGrid } from "react-virtuoso";
@@ -55,14 +55,7 @@ function ManifestDashboard({
   };
 
   return (
-    <Container
-      sx={{
-        ...FlexCenter,
-        flexDirection: "column",
-        height: "100%",
-        padding: "2px",
-      }}
-    >
+    <Container sx={DashboardWrapperSx}>
       <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
         <ManifestFilterButton />
         <Button

@@ -1,3 +1,4 @@
+import { SxProps, Theme } from "@mui/material/styles";
 import React from "react";
 import { GridComponents } from "react-virtuoso";
 
@@ -7,10 +8,18 @@ export const FlexCenter: React.CSSProperties = {
   alignItems: "center",
 };
 
-export const MainWrapperSx: React.CSSProperties = {
+export const MainWrapperSx: SxProps<Theme> = {
   width: "98%",
   maxWidth: 1600,
   margin: "10px auto",
+  textAlign: "center",
+};
+
+export const DashboardWrapperSx: SxProps<Theme> = {
+  ...FlexCenter,
+  flexDirection: "column",
+  height: "100%",
+  padding: "2px",
   textAlign: "center",
 };
 
@@ -23,6 +32,7 @@ export const GridList: GridComponents["List"] = React.forwardRef(
           ...FlexCenter,
           flexWrap: "wrap",
           gap: "10px",
+          margin: "5px",
           ...style,
         }}
       >

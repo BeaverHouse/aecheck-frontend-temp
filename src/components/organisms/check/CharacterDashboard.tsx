@@ -4,12 +4,24 @@ import { useTranslation } from "react-i18next";
 import useFilterStore from "../../../store/useFilterStore";
 import useCheckStore from "../../../store/useCheckStore";
 import { getNumber, getInvenStatus, getShortName } from "../../../util/func";
-import { AECharacterStyles } from "../../../constants/enum";
+import {
+  AECharacterStyles,
+  ModalType,
+  PopupOnCheckOptions,
+} from "../../../constants/enum";
 import CharacterAvatar from "../../atoms/character/Avatar";
-import { FlexCenter, GridList } from "../../../constants/style";
+import {
+  DashboardWrapperSx,
+  FlexCenter,
+  GridList,
+} from "../../../constants/style";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { VirtuosoGrid } from "react-virtuoso";
+import PopupConfigButton from "../../atoms/button/PopupConfig";
+import Typography from "@mui/material/Typography";
+import useModalStore from "../../../store/useModalStore";
+import useConfigStore from "../../../store/useConfigStore";
 
 function CharacterDashboard({
   allCharacters,
@@ -18,12 +30,15 @@ function CharacterDashboard({
   const { t, i18n } = useTranslation();
   const { invenStatusFilter } = useFilterStore();
   const { inven, buddy, setInven, setBuddy } = useCheckStore();
+  const { popupOnCheck } = useConfigStore();
+  const { setModal } = useModalStore();
 
   const targetCharacters = filteredCharacters
-    .filter((char) =>
-      invenStatusFilter.includes(getInvenStatus(allCharacters, char, inven))
+    .filter(
+      (char) =>
+        getNumber(char) < 1000 &&
+        invenStatusFilter.includes(getInvenStatus(allCharacters, char, inven))
     )
-    .filter((char) => getNumber(char) < 1000)
     .sort((a, b) =>
       getShortName(t(a.code), i18n.language).localeCompare(
         getShortName(t(b.code), i18n.language)
@@ -50,6 +65,14 @@ function CharacterDashboard({
     if (char.buddy) {
       const newBuddyIds = [...buddy, getNumber(char.buddy)];
       setBuddy(newBuddyIds);
+    }
+
+    if (
+      popupOnCheck === PopupOnCheckOptions.all ||
+      (popupOnCheck === PopupOnCheckOptions.fourOnly &&
+        char.style === AECharacterStyles.four)
+    ) {
+      setModal(ModalType.character, char.id);
     }
   };
 
@@ -131,14 +154,13 @@ function CharacterDashboard({
   };
 
   return (
-    <Container
-      sx={{
-        ...FlexCenter,
-        flexDirection: "column",
-        height: "100%",
-        padding: "5px",
-      }}
-    >
+    <Container sx={DashboardWrapperSx}>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 1 }}>
+        <Typography variant="subtitle1">
+          {t("frontend.message.popup-on-check")}
+        </Typography>
+        <PopupConfigButton />
+      </Box>
       <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
         <InvenFilterButton />
         <Button

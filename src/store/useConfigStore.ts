@@ -4,15 +4,18 @@ import {
   AnalysisMenuOptions,
   CheckMenuOptions,
   CheckTabOptions,
+  PopupOnCheckOptions,
   ThemeOptions,
 } from "../constants/enum";
 
 interface ConfigState {
+  popupOnCheck: PopupOnCheckOptions;
   theme: ThemeOptions;
   lastCheckMenu: CheckMenuOptions;
   lastCheckTab: CheckTabOptions;
   lastSearchMenu: CheckMenuOptions;
   lastAnalysisMenu: AnalysisMenuOptions;
+  setPopupOnCheck: (popup: PopupOnCheckOptions) => void;
   toggleTheme: (theme: ThemeOptions) => void;
   updateLastCheckMenu: (option: CheckMenuOptions) => void;
   updateLastCheckTab: (option: CheckTabOptions) => void;
@@ -23,11 +26,16 @@ interface ConfigState {
 const useConfigStore = create(
   persist<ConfigState>(
     (set) => ({
+      popupOnCheck: PopupOnCheckOptions.fourOnly,
       theme: ThemeOptions.light,
       lastCheckMenu: CheckMenuOptions.characters,
       lastCheckTab: CheckTabOptions.inven,
       lastSearchMenu: CheckMenuOptions.characters,
       lastAnalysisMenu: AnalysisMenuOptions.stardream,
+      setPopupOnCheck: (popup) =>  set((state) => ({
+        ...state,
+        popupOnCheck: popup,
+      })),
       toggleTheme: (theme) =>
         set((state) => ({
           ...state,
