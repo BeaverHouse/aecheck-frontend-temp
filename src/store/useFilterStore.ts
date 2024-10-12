@@ -139,6 +139,10 @@ const useFilterStore = create(
           (state) => ({
             ...state,
             ...initialState,
+            invenStatusFilter: state.invenStatusFilter,
+            manifestStatusFilter: state.manifestStatusFilter,
+            grastaStatusFilter: state.grastaStatusFilter,
+            staralignStatusFilter: state.staralignStatusFilter,
           }),
           true
         );
