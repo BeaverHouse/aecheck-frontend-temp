@@ -5,7 +5,7 @@ import useCheckStore from "../../../store/useCheckStore";
 import { getManifestStatus, getNumber, getShortName } from "../../../util/func";
 import CharacterManifest from "../../molecules/character/Manifest";
 import Box from "@mui/material/Box";
-import { DashboardWrapperSx, FlexCenter, GridList } from "../../../constants/style";
+import { DashboardWrapperSx, FlexCenter, GridList, VirtuosoGridStyle } from "../../../constants/style";
 import ManifestFilterButton from "../../atoms/button/ManifestFilter";
 import Button from "@mui/material/Button";
 import { VirtuosoGrid } from "react-virtuoso";
@@ -56,12 +56,12 @@ function ManifestDashboard({
 
   return (
     <Container sx={DashboardWrapperSx}>
-      <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         <ManifestFilterButton />
         <Button
           variant="contained"
           color="secondary"
-          sx={{ m: 0.5 }}
+          sx={{ m: 0.3 }}
           onClick={() => uncheckAll()}
         >
           CLEAR ALL
@@ -69,18 +69,14 @@ function ManifestDashboard({
         <Button
           variant="contained"
           color="success"
-          sx={{ m: 0.5 }}
+          sx={{ m: 0.3 }}
           onClick={() => checkAll()}
         >
           CHECK ALL
         </Button>
       </Box>
       <VirtuosoGrid
-        style={{
-          flexGrow: 1,
-          width: "100%",
-          height: 500,
-        }}
+        style={VirtuosoGridStyle}
         components={{
           List: GridList,
         }}

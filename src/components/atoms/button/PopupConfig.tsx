@@ -15,7 +15,7 @@ function PopupConfigButton() {
       exclusive
       value={popupOnCheck}
       onChange={(_, v) => setPopupOnCheck(v as PopupOnCheckOptions)}
-      sx={{ m: 1 }}
+      sx={{ m: 0.8 }}
     >
       {Object.values(PopupOnCheckOptions).map((option) => (
         <ToggleButton key={option} value={option}>

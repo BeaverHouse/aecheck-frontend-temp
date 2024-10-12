@@ -30,13 +30,7 @@ function BuddySearch() {
   );
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        p: 1,
-        overflow: "auto",
-      }}
-    >
+    <Box sx={{ flexGrow: 1, pt: 1.5 }}>
       <GlobalFilter type={CheckMenuOptions.buddies} />
       <Grid container spacing={1} justifyContent="center">
         {filteredBuddies.map((info) => (

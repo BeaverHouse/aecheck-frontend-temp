@@ -22,8 +22,7 @@ const GlobalFilter: React.FC<GlobalFilterProps> = ({ type }) => {
         display: "flex",
         alignItems: "center",
         margin: "0 auto",
-        mt: 2,
-        mb: 2,
+        mb: 1,
         justifyContent: "center",
         flexWrap: "wrap",
       }}

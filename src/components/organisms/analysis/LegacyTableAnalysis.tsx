@@ -25,7 +25,7 @@ const LegacyTableAnalysis: React.FC<AnalysisProps> = ({ allCharacters }) => {
       <div
         style={{
           maxWidth: "90%",
-          maxHeight: "90vh",
+          maxHeight: "80vh",
           margin: "10px auto",
           overflow: "scroll",
         }}

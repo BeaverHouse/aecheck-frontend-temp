@@ -76,13 +76,7 @@ function CharacterSearch() {
   );
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        p: 1,
-        overflow: "auto",
-      }}
-    >
+    <Box sx={{ flexGrow: 1, pt: 1.5 }}>
       <GlobalFilter type={CheckMenuOptions.characters} />
       <VirtuosoGrid
         style={{

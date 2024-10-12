@@ -14,7 +14,7 @@ function ManifestFilterButton() {
       size="small"
       value={manifestStatusFilter}
       onChange={(_, v) => setManifestStatusFilter(v as ManifestStatus[])}
-      sx={{ m: 1 }}
+      sx={{ m: 0.8 }}
     >
       {Object.values(ManifestStatus).map((option) => (
         <ToggleButton key={option} value={option}>

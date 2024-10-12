@@ -8,7 +8,7 @@ import {
   getShortName,
   getStep,
 } from "../../../util/func";
-import { DashboardWrapperSx, FlexCenter, GridList } from "../../../constants/style";
+import { DashboardWrapperSx, FlexCenter, GridList, VirtuosoGridStyle } from "../../../constants/style";
 import CharacterGrasta from "../../molecules/character/Grasta";
 import GrastaFilterButton from "../../atoms/button/GrastaFilter";
 import { VirtuosoGrid } from "react-virtuoso";
@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import InvenFilterButton from "../../atoms/button/InvenFilter";
 import Swal from "sweetalert2";
+import { AECharacterStyles } from "../../../constants/enum";
 
 function GrastaDashboard({
   allCharacters,
@@ -26,7 +27,7 @@ function GrastaDashboard({
   const { invenStatusFilter, grastaStatusFilter } = useFilterStore();
 
   const targetCharacters = filteredCharacters
-    .filter((char) => char.dungeons.length > 0)
+    .filter((char) => char.style !== AECharacterStyles.four && char.dungeons.length > 0)
     .filter(
       (char) =>
         grastaStatusFilter.includes(getStep(getNumber(char), grasta)) &&
@@ -63,9 +64,11 @@ function GrastaDashboard({
 
   return (
     <Container sx={DashboardWrapperSx}>
-      <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         <GrastaFilterButton />
         <InvenFilterButton />
+      </Box>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         {[0, 1, 2].map((step) => (
           <Button
             variant="contained"
@@ -85,11 +88,7 @@ function GrastaDashboard({
         ))}
       </Box>
       <VirtuosoGrid
-        style={{
-          flexGrow: 1,
-          width: "100%",
-          height: 500,
-        }}
+        style={VirtuosoGridStyle}
         components={{
           List: GridList,
         }}

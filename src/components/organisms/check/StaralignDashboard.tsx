@@ -8,7 +8,7 @@ import {
   getShortName,
   getStep,
 } from "../../../util/func";
-import { DashboardWrapperSx, FlexCenter, GridList } from "../../../constants/style";
+import { DashboardWrapperSx, FlexCenter, GridList, VirtuosoGridStyle } from "../../../constants/style";
 import CharacterStaralign from "../../molecules/character/Staralign";
 import StaralignFilterButton from "../../atoms/button/StaralignFilter";
 import { VirtuosoGrid } from "react-virtuoso";
@@ -38,16 +38,12 @@ function StaralignDashboard({
 
   return (
     <Container sx={DashboardWrapperSx}>
-      <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         <StaralignFilterButton />
         <InvenFilterButton />
       </Box>
       <VirtuosoGrid
-        style={{
-          flexGrow: 1,
-          width: "100%",
-          height: 500,
-        }}
+        style={VirtuosoGridStyle}
         components={{
           List: GridList,
         }}

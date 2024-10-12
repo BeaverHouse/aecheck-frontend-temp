@@ -18,7 +18,7 @@ function AnalysisPage() {
         res.json()
       ),
   });
-  
+
   if (isPending) return <Loading />;
   if (error) return "An error has occurred: " + error.message;
 
@@ -35,15 +35,9 @@ function AnalysisPage() {
       case AnalysisMenuOptions.legacyTable:
         return <LegacyTableAnalysis allCharacters={allCharacters} />;
     }
-  }
+  };
 
-  return (
-    <Box
-      sx={MainWrapperSx}
-    >
-      {component()}
-    </Box>
-  );
+  return <Box sx={MainWrapperSx}>{component()}</Box>;
 }
 
 export default AnalysisPage;

@@ -11,7 +11,7 @@ function StaralignFilterButton() {
       size="small"
       value={staralignStatusFilter}
       onChange={(_, v) => setStaralignStatusFilter(v as number[])}
-      sx={{ m: 1 }}
+      sx={{ m: 0.8 }}
     >
       {[0, 1, 2, 3].map((option) => (
         <ToggleButton key={option} value={option}>

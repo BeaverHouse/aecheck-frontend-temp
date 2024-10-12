@@ -14,7 +14,7 @@ function InvenFilterButton() {
       size="small"
       value={invenStatusFilter}
       onChange={(_, v) => setInvenStatusFilter(v as InvenStatus[])}
-      sx={{ m: 1 }}
+      sx={{ m: 0.8 }}
     >
       {Object.values(InvenStatus).map((option) => (
         <ToggleButton key={option} value={option}>

@@ -93,7 +93,7 @@ function CheckPage() {
   };
 
   return lastCheckMenu === CheckMenuOptions.characters ? (
-    <>
+    <Box sx={{ flexGrow: 1, pt: 3 }}>
       <GlobalFilter type={CheckMenuOptions.characters} />
       <Box display="flex" justifyContent="center" width="100%">
         <Tabs
@@ -113,14 +113,14 @@ function CheckPage() {
         </Tabs>
       </Box>
       {component()}
-    </>
+    </Box>
   ) : (
-    <>
+    <Box sx={{ flexGrow: 1, pt: 3 }}>
       <GlobalFilter type={CheckMenuOptions.buddies} />
       <Grid container spacing={1} sx={MainWrapperSx}>
         <BuddyDashboard />
       </Grid>
-    </>
+    </Box>
   );
 }
 

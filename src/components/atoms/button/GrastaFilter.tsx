@@ -11,7 +11,7 @@ function GrastaFilterButton() {
       size="small"
       value={grastaStatusFilter}
       onChange={(_, v) => setGrastaStatusFilter(v as number[])}
-      sx={{ m: 1 }}
+      sx={{ m: 0.8 }}
     >
       {[0, 1, 2].map((option) => (
         <ToggleButton key={option} value={option} sx={{ p: 0.28 }}>

@@ -14,6 +14,7 @@ import {
   DashboardWrapperSx,
   FlexCenter,
   GridList,
+  VirtuosoGridStyle,
 } from "../../../constants/style";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -155,18 +156,20 @@ function CharacterDashboard({
 
   return (
     <Container sx={DashboardWrapperSx}>
-      <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 1 }}>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         <Typography variant="subtitle1">
           {t("frontend.message.popup-on-check")}
         </Typography>
         <PopupConfigButton />
       </Box>
-      <Box sx={{ ...FlexCenter, flexWrap: "wrap", mb: 2 }}>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         <InvenFilterButton />
+      </Box>
+      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         <Button
           variant="contained"
           color="secondary"
-          sx={{ m: 0.5 }}
+          sx={{ m: 0.3 }}
           onClick={() => uncheckAll()}
         >
           CLEAR ALL
@@ -174,18 +177,14 @@ function CharacterDashboard({
         <Button
           variant="contained"
           color="success"
-          sx={{ m: 0.5 }}
+          sx={{ m: 0.3 }}
           onClick={() => checkAll()}
         >
           CHECK ALL
         </Button>
       </Box>
       <VirtuosoGrid
-        style={{
-          flexGrow: 1,
-          width: "100%",
-          height: 500,
-        }}
+        style={VirtuosoGridStyle}
         components={{
           List: GridList,
         }}

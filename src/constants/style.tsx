@@ -9,7 +9,7 @@ export const FlexCenter: React.CSSProperties = {
 };
 
 export const MainWrapperSx: SxProps<Theme> = {
-  width: "98%",
+  width: "99%",
   maxWidth: 1600,
   margin: "10px auto",
   textAlign: "center",
@@ -21,6 +21,13 @@ export const DashboardWrapperSx: SxProps<Theme> = {
   height: "100%",
   padding: "2px",
   textAlign: "center",
+};
+
+export const VirtuosoGridStyle: React.CSSProperties = {
+  flexGrow: 1,
+  width: "100%",
+  height: 500,
+  marginTop: 10,
 };
 
 export const GridList: GridComponents["List"] = React.forwardRef(
