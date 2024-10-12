@@ -15,11 +15,17 @@ import Avatar from "@mui/material/Avatar";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { InvenStatus, LanguageOptions } from "../../../constants/enum";
+import {
+  AECharacterStyles,
+  InvenStatus,
+  LanguageOptions,
+} from "../../../constants/enum";
 import Link from "@mui/material/Link";
 import { getNumber } from "../../../util/func";
 import { SxProps, Theme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Alert from "@mui/material/Alert";
+import { FlexCenter } from "../../../constants/style";
 
 const style: SxProps<Theme> = {
   position: "absolute" as const,
@@ -36,6 +42,12 @@ const style: SxProps<Theme> = {
   maxHeight: "75vh",
   overflowY: "auto",
   p: 1.5,
+};
+const baseStyle = {
+  width: 28,
+  height: 28,
+  mr: 1,
+  borderRadius: "100px",
 };
 
 const CharacterModal: React.FC = () => {
@@ -103,13 +115,6 @@ const CharacterModal: React.FC = () => {
   const currentAlignStep = getStep(id, staralign);
 
   const invenIcon = () => {
-    const baseStyle = {
-      width: 28,
-      height: 28,
-      mr: 1,
-      backgroundColor: theme.palette.background.paper,
-      borderRadius: "100px",
-    };
     switch (currentInven) {
       case InvenStatus.owned:
         return <CheckCircleIcon color="success" sx={baseStyle} />;
@@ -379,25 +384,15 @@ const CharacterModal: React.FC = () => {
             </Box>
           </Box>
         ) : null}
-        {bookName !== "N/A" ? (
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              flexDirection: isMobile ? "column" : "row",
-              alignItems: "center",
-              mt: 1,
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                mr: 1,
-                ml: 1,
-              }}
-            >
+
+        <Box
+          sx={{
+            ...FlexCenter,
+            m: 2
+          }}
+        >
+          {bookName !== "N/A" ? (
+            <>
               <Box>
                 <img
                   src={`${import.meta.env.VITE_CDN_URL}/icon/book.png`}
@@ -424,61 +419,66 @@ const CharacterModal: React.FC = () => {
                   }}
                 />
               </Box>
-              <Typography variant="subtitle1" component="h2">
+              <Typography variant="subtitle1" component="h2" sx={{ ml: 1 }}>
                 {bookName}
               </Typography>
-            </Box>
-            <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-              {characterData.dungeons.map((dun) => (
-                <Box
-                  sx={{
-                    display: "flex",
-                    textAlign: "center",
-                    alignItems: "center",
-                    m: 0.5,
-                  }}
-                >
-                  <Typography
-                    variant={
-                      dun.id.startsWith("dungeon10") ? "h5" : "subtitle2"
-                    }
-                    sx={{ flexGrow: 1 }}
+            </>
+          ) : null}
+        </Box>
+        <Box sx={{ mt: 1, display: "flex", flexDirection: "column" }}>
+          {characterData.dungeons.length > 0 && (
+            <Typography
+              variant="subtitle2"
+              component="h2"
+              sx={{ textAlign: "center", fontWeight: "bold" }}
+            >
+              {t(`frontend.filter.bookdrop`)}{characterData.style === AECharacterStyles.four ? " (NS)" : ""}
+            </Typography>
+          )}
+          {characterData.dungeons.map((dun) => (
+            <Box
+              sx={{
+                display: "flex",
+                textAlign: "center",
+                alignItems: "center",
+                m: 0.5,
+              }}
+            >
+              <Alert
+                severity={dun.id.startsWith("dungeon0") ? "success" : "warning"}
+                sx={{ flexGrow: 1, textAlign: "center", mr: 1, ml: 1 }}
+              >
+                {t(dun.id)}
+              </Alert>
+              {dun.links.altemaURL !== null ? (
+                <>
+                  <Link
+                    aria-label="altema"
+                    href={dun.links.altemaURL}
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    {t(dun.id)}
-                  </Typography>
-                  {dun.links.altemaURL !== null ? (
-                    <>
-                      <Link
-                        aria-label="altema"
-                        href={dun.links.altemaURL}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <Avatar
-                          src={`${
-                            import.meta.env.VITE_CDN_URL
-                          }/icon/altema.jpg`}
-                          sx={{ width: 30, height: 30, mr: 1 }}
-                        />
-                      </Link>
-                      <Link
-                        aria-label="wiki"
-                        href={dun.links.aewikiURL}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <Avatar
-                          src={`${import.meta.env.VITE_CDN_URL}/icon/wiki.jpg`}
-                          sx={{ width: 30, height: 30 }}
-                        />
-                      </Link>
-                    </>
-                  ) : null}
-                </Box>
-              ))}
+                    <Avatar
+                      src={`${import.meta.env.VITE_CDN_URL}/icon/altema.jpg`}
+                      sx={{ width: 30, height: 30, mr: 1 }}
+                    />
+                  </Link>
+                  <Link
+                    aria-label="wiki"
+                    href={dun.links.aewikiURL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Avatar
+                      src={`${import.meta.env.VITE_CDN_URL}/icon/wiki.jpg`}
+                      sx={{ width: 30, height: 30 }}
+                    />
+                  </Link>
+                </>
+              ) : null}
             </Box>
-          </Box>
-        ) : null}
+          ))}
+        </Box>
       </Box>
     </Modal>
   );
