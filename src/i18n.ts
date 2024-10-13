@@ -6,16 +6,17 @@ import { initReactI18next } from "react-i18next";
 import TransJA from "./i18n/ja.json";
 import TransKO from "./i18n/ko.json";
 import TransEN from "./i18n/en.json";
+import resourcesToBackend from "i18next-resources-to-backend";
 
 const resource = {
   en: {
-    translations: TransEN,
+    translation: TransEN,
   },
   ko: {
-    translations: TransKO,
+    translation: TransKO,
   },
   ja: {
-    translations: TransJA,
+    translation: TransJA,
   },
 };
 
@@ -25,7 +26,7 @@ i18n
   .use(initReactI18next)
   .init({
     backend: {
-      backends: [HttpBackend],
+      backends: [HttpBackend, resourcesToBackend(resource)],
       backendOptions: [
         {
           loadPath: `${import.meta.env.VITE_API_URL}/translation/{{lng}}`,

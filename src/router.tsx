@@ -10,6 +10,7 @@ import SearchPage from "./components/pages/Search";
 import AnalysisPage from "./components/pages/Analysis";
 import LinkPage from "./components/pages/Link";
 import CssBaseline from "@mui/material/CssBaseline";
+import ErrorPage from "./components/pages/Error";
 
 const router = createBrowserRouter([
   {
@@ -30,22 +31,27 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/check",
         element: <CheckPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/search",
         element: <SearchPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/analysis",
         element: <AnalysisPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/link",
         element: <LinkPage />,
+        errorElement: <ErrorPage />,
       },
     ],
   },
