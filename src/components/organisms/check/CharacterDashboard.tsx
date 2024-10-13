@@ -164,24 +164,24 @@ function CharacterDashboard({
       </Box>
       <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
         <InvenFilterButton />
-      </Box>
-      <Box sx={{ ...FlexCenter, flexWrap: "wrap" }}>
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={{ m: 0.3 }}
-          onClick={() => uncheckAll()}
-        >
-          CLEAR ALL
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          sx={{ m: 0.3 }}
-          onClick={() => checkAll()}
-        >
-          CHECK ALL
-        </Button>
+        <Box>
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ m: 0.3 }}
+            onClick={() => uncheckAll()}
+          >
+            CLEAR ALL
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            sx={{ m: 0.3 }}
+            onClick={() => checkAll()}
+          >
+            CHECK ALL
+          </Button>
+        </Box>
       </Box>
       <VirtuosoGrid
         style={VirtuosoGridStyle}
