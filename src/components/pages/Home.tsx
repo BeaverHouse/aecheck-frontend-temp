@@ -32,17 +32,16 @@ function HomePage() {
   const { t } = useTranslation();
   const { setModal } = useModalStore();
   const navigate = useNavigate();
-  const { isPending, error, data } = useQuery({
+  const { isPending, data } = useQuery({
     queryKey: ["getCharacters"],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_URL}/character`).then((res) =>
         res.json()
       ),
+    throwOnError: true,
   });
 
   if (isPending) return <Loading />;
-
-  if (error) return "An error has occurred: " + error.message;
 
   const characters = (data as APIResponse<CharacterSummary[]>).data;
   const totalCodes = Array.from(new Set(characters.map((c) => c.code)));

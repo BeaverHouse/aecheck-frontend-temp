@@ -11,15 +11,14 @@ import Loading from "../../atoms/Loading";
 function BuddySearch() {
   const { t } = useTranslation();
   const { searchWord } = useFilterStore();
-  const { isPending, error, data } = useQuery({
+  const { isPending, data } = useQuery({
     queryKey: ["getBuddies"],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_URL}/buddy`).then((res) => res.json()),
+    throwOnError: true,
   });
 
   if (isPending) return <Loading />;
-
-  if (error) return "An error has occurred: " + error.message;
 
   const allBuddies = (data as APIResponse<BuddyDetail[]>).data.sort((a, b) =>
     t(a.id).localeCompare(t(b.id))

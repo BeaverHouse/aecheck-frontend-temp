@@ -41,17 +41,16 @@ function CheckPage() {
     dungeon,
     searchWord,
   } = useFilterStore();
-  const { isPending, error, data } = useQuery({
+  const { isPending, data } = useQuery({
     queryKey: ["getCharacters"],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_URL}/character`).then((res) =>
         res.json()
       ),
+    throwOnError: true,
   });
 
   if (isPending) return <Loading />;
-
-  if (error) return "An error has occurred: " + error.message;
 
   const allCharacters = (data as APIResponse<CharacterSummary[]>).data;
   const filteredCharacters = allCharacters.filter(
