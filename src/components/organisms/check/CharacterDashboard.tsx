@@ -23,6 +23,7 @@ import PopupConfigButton from "../../atoms/button/PopupConfig";
 import Typography from "@mui/material/Typography";
 import useModalStore from "../../../store/useModalStore";
 import useConfigStore from "../../../store/useConfigStore";
+import Swal from "sweetalert2";
 
 function CharacterDashboard({
   allCharacters,
@@ -98,51 +99,75 @@ function CharacterDashboard({
   };
 
   const checkAll = () => {
-    const newInven = [
-      ...inven,
-      ...targetCharacters.map((char) => getNumber(char)),
-    ];
+    Swal.fire({
+      text: t("frontend.message.character.checkall"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const newInven = [
+          ...inven,
+          ...targetCharacters.map((char) => getNumber(char)),
+        ];
 
-    const newCodes = targetCharacters.map((char) => char.code);
+        const newCodes = targetCharacters.map((char) => char.code);
 
-    const fourStars = allCharacters.filter(
-      (char) =>
-        char.style === AECharacterStyles.four && newCodes.includes(char.code)
-    );
-    for (const char of fourStars) {
-      newInven.push(getNumber(char));
-    }
-    setInven(newInven);
+        const fourStars = allCharacters.filter(
+          (char) =>
+            char.style === AECharacterStyles.four &&
+            newCodes.includes(char.code)
+        );
+        for (const char of fourStars) {
+          newInven.push(getNumber(char));
+        }
+        setInven(newInven);
 
-    const newBuddy = [
-      ...buddy,
-      ...targetCharacters
-        .filter((char) => char.buddy)
-        .map((char) => getNumber(char.buddy!)),
-    ];
-    setBuddy(newBuddy);
+        const newBuddy = [
+          ...buddy,
+          ...targetCharacters
+            .filter((char) => char.buddy)
+            .map((char) => getNumber(char.buddy!)),
+        ];
+        setBuddy(newBuddy);
+      }
+    });
   };
 
   const uncheckAll = () => {
-    const removeInven = [...targetCharacters.map((char) => getNumber(char))];
+    Swal.fire({
+      text: t("frontend.message.character.uncheckall"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const removeInven = [
+          ...targetCharacters.map((char) => getNumber(char)),
+        ];
 
-    const newCodes = targetCharacters.map((char) => char.code);
+        const newCodes = targetCharacters.map((char) => char.code);
 
-    const normalStyles = allCharacters.filter(
-      (char) =>
-        char.style === AECharacterStyles.normal && newCodes.includes(char.code)
-    );
-    for (const char of normalStyles) {
-      removeInven.push(getNumber(char));
-    }
-    setInven(inven.filter((i) => !removeInven.includes(i)));
+        const normalStyles = allCharacters.filter(
+          (char) =>
+            char.style === AECharacterStyles.normal &&
+            newCodes.includes(char.code)
+        );
+        for (const char of normalStyles) {
+          removeInven.push(getNumber(char));
+        }
+        setInven(inven.filter((i) => !removeInven.includes(i)));
 
-    const removeBuddy = [
-      ...targetCharacters
-        .filter((char) => char.buddy)
-        .map((char) => getNumber(char.buddy!)),
-    ];
-    setBuddy(buddy.filter((b) => !removeBuddy.includes(b)));
+        const removeBuddy = [
+          ...targetCharacters
+            .filter((char) => char.buddy)
+            .map((char) => getNumber(char.buddy!)),
+        ];
+        setBuddy(buddy.filter((b) => !removeBuddy.includes(b)));
+      }
+    });
   };
 
   const toggleSingleInven = (char: CharacterSummary) => {

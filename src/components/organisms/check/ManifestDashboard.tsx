@@ -5,10 +5,16 @@ import useCheckStore from "../../../store/useCheckStore";
 import { getManifestStatus, getNumber, getShortName } from "../../../util/func";
 import CharacterManifest from "../../molecules/character/Manifest";
 import Box from "@mui/material/Box";
-import { DashboardWrapperSx, FlexCenter, GridList, VirtuosoGridStyle } from "../../../constants/style";
+import {
+  DashboardWrapperSx,
+  FlexCenter,
+  GridList,
+  VirtuosoGridStyle,
+} from "../../../constants/style";
 import ManifestFilterButton from "../../atoms/button/ManifestFilter";
 import Button from "@mui/material/Button";
 import { VirtuosoGrid } from "react-virtuoso";
+import Swal from "sweetalert2";
 
 function ManifestDashboard({
   allCharacters,
@@ -32,26 +38,48 @@ function ManifestDashboard({
     );
 
   const checkAll = () => {
-    const ids = targetCharacters.map((char) => getNumber(char));
+    Swal.fire({
+      text: t("frontend.message.manifest.checkall"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const ids = targetCharacters.map((char) => getNumber(char));
 
-    const newManifest = [
-      ...manifest.filter((i) => !ids.includes(i % 10000)),
-      ...targetCharacters
-        .filter(
-          (char) => char.maxManifest > 0 && inven.includes(getNumber(char))
-        )
-        .map((char) => char.maxManifest * 10000 + getNumber(char)),
-    ];
+        const newManifest = [
+          ...manifest.filter((i) => !ids.includes(i % 10000)),
+          ...targetCharacters
+            .filter(
+              (char) => char.maxManifest > 0 && inven.includes(getNumber(char))
+            )
+            .map((char) => char.maxManifest * 10000 + getNumber(char)),
+        ];
 
-    setManifest(newManifest);
+        setManifest(newManifest);
+      }
+    });
   };
 
   const uncheckAll = () => {
-    const ids = targetCharacters.map((char) => getNumber(char));
+    Swal.fire({
+      text: t("frontend.message.manifest.uncheckall"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const ids = targetCharacters.map((char) => getNumber(char));
 
-    const newManifest = [...manifest.filter((i) => !ids.includes(i % 10000))];
+        const newManifest = [
+          ...manifest.filter((i) => !ids.includes(i % 10000)),
+        ];
 
-    setManifest(newManifest);
+        setManifest(newManifest);
+      }
+    });
   };
 
   return (
