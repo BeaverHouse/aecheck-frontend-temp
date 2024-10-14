@@ -2,6 +2,8 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import BuyMeACoffeeButton from "../atoms/button/Coffee";
+import EmailIcon from '@mui/icons-material/Email';
 
 const LinkData = [
   {
@@ -62,7 +64,19 @@ function LinkPage() {
           </Typography>
         </Button>
       ))}
-      <Typography variant="subtitle1">e-mail : haulrest@gmail.com</Typography>
+      <BuyMeACoffeeButton />
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ width: 200, pl: 3, display: "flex" }}
+          href="mailto:haulrest@gmail.com"
+          startIcon={<EmailIcon />}
+        >
+
+          <Typography variant="body1" fontWeight="bold" sx={{ flexGrow: 1 }}>
+            Report (e-mail)
+          </Typography>
+        </Button>
     </Box>
   );
 }
