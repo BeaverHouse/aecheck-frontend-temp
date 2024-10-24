@@ -17,6 +17,7 @@ import Box from "@mui/material/Box";
 import InvenFilterButton from "../../atoms/button/InvenFilter";
 import Swal from "sweetalert2";
 import { AECharacterStyles } from "../../../constants/enum";
+import dayjs from "dayjs";
 
 function GrastaDashboard({
   allCharacters,
@@ -33,11 +34,17 @@ function GrastaDashboard({
         grastaStatusFilter.includes(getStep(getNumber(char), grasta)) &&
         invenStatusFilter.includes(getInvenStatus(allCharacters, char, inven))
     )
-    .sort((a, b) =>
-      getShortName(t(a.code), i18n.language).localeCompare(
+    .sort((a, b) => {
+      const aIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(a.updateDate));
+      const bIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(b.updateDate));
+      
+      if (aIsRecent && !bIsRecent) return -1;
+      if (!aIsRecent && bIsRecent) return 1;
+      
+      return getShortName(t(a.code), i18n.language).localeCompare(
         getShortName(t(b.code), i18n.language)
-      )
-    );
+      );
+    });
 
   const changeAllGrasta = (step: number) => {
     Swal.fire({

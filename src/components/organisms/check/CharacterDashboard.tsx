@@ -24,6 +24,7 @@ import Typography from "@mui/material/Typography";
 import useModalStore from "../../../store/useModalStore";
 import useConfigStore from "../../../store/useConfigStore";
 import Swal from "sweetalert2";
+import dayjs from "dayjs";
 
 function CharacterDashboard({
   allCharacters,
@@ -41,11 +42,17 @@ function CharacterDashboard({
         getNumber(char) < 1000 &&
         invenStatusFilter.includes(getInvenStatus(allCharacters, char, inven))
     )
-    .sort((a, b) =>
-      getShortName(t(a.code), i18n.language).localeCompare(
+    .sort((a, b) => {
+      const aIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(a.updateDate));
+      const bIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(b.updateDate));
+      
+      if (aIsRecent && !bIsRecent) return -1;
+      if (!aIsRecent && bIsRecent) return 1;
+      
+      return getShortName(t(a.code), i18n.language).localeCompare(
         getShortName(t(b.code), i18n.language)
-      )
-    );
+      );
+    });
 
   /**
    * 1. Add character
@@ -84,15 +91,19 @@ function CharacterDashboard({
    * 3. Remove buddy
    */
   const removeSingleInven = (char: CharacterSummary) => {
-    console.log("remove", char.id);
     const removeCharIds = [getNumber(char)];
+
+    const isFourStar = char.style === AECharacterStyles.four;
     const NSChar = allCharacters.find(
       (c) => c.code === char.code && c.style === AECharacterStyles.normal
     );
-    if (NSChar && char.style === AECharacterStyles.four) {
+
+    if (isFourStar && NSChar) {
       removeCharIds.push(getNumber(NSChar));
     }
+
     setInven(inven.filter((i) => !removeCharIds.includes(i)));
+
     if (char.buddy) {
       setBuddy(buddy.filter((b) => b !== getNumber(char.buddy!)));
     }

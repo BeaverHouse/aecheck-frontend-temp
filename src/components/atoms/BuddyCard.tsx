@@ -11,8 +11,7 @@ import Box from "@mui/material/Box";
 import useModalStore from "../../store/useModalStore";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { LanguageOptions, ModalType } from "../../constants/enum";
-import { getNumber } from "../../util/func";
-import dayjs from "dayjs";
+import { getNumber, isUpdatedInWeeks } from "../../util/func";
 import { FlexCenter } from "../../constants/style";
 
 interface BuddyCardProps {
@@ -27,9 +26,7 @@ const BuddyCard: React.FC<BuddyCardProps> = ({ info, onClick }) => {
   const { setModal } = useModalStore();
 
   const id = getNumber(info);
-  const isRecent =
-    info.lastUpdated &&
-    dayjs().subtract(3, "week").isBefore(dayjs(info.lastUpdated));
+  const isRecent = isUpdatedInWeeks(info.lastUpdated);
   const checked = buddy.includes(id);
 
   return (

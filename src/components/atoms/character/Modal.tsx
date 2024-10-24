@@ -170,8 +170,6 @@ const CharacterModal: React.FC = () => {
                 characterData.id
               }.png`}
               alt={characterData.id}
-              width={80}
-              height={80}
               style={{
                 width: 75,
                 height: 75,
@@ -224,12 +222,10 @@ const CharacterModal: React.FC = () => {
           >
             <img
               src={`${import.meta.env.VITE_CDN_URL}/icon/crown.png`}
-              width={28}
-              height={28}
-              alt={`complete`}
+              alt="complete"
               style={{
-                width: 27,
-                height: 27,
+                width: 28,
+                height: 28,
                 marginRight: 8,
               }}
             />
@@ -250,8 +246,6 @@ const CharacterModal: React.FC = () => {
               src={`${import.meta.env.VITE_CDN_URL}/staralign/${
                 characterData.id
               }.png`}
-              width={35}
-              height={35}
               alt="complete"
               style={{
                 width: 28,
@@ -388,7 +382,7 @@ const CharacterModal: React.FC = () => {
         <Box
           sx={{
             ...FlexCenter,
-            m: 2
+            m: 2,
           }}
         >
           {bookName !== "N/A" ? (
@@ -397,8 +391,6 @@ const CharacterModal: React.FC = () => {
                 <img
                   src={`${import.meta.env.VITE_CDN_URL}/icon/book.png`}
                   alt={"book"}
-                  width={40}
-                  height={40}
                   style={{
                     width: 40,
                     height: 40,
@@ -410,8 +402,6 @@ const CharacterModal: React.FC = () => {
                     import.meta.env.VITE_CDN_URL
                   }/icon/grasta${currentGrastaStep}.png`}
                   alt={"book"}
-                  width={40}
-                  height={40}
                   style={{
                     width: 40,
                     height: 40,
@@ -432,7 +422,8 @@ const CharacterModal: React.FC = () => {
               component="h2"
               sx={{ textAlign: "center", fontWeight: "bold" }}
             >
-              {t(`frontend.filter.bookdrop`)}{characterData.style === AECharacterStyles.four ? " (NS)" : ""}
+              {t(`frontend.filter.bookdrop`)}
+              {characterData.style === AECharacterStyles.four ? " (NS)" : ""}
             </Typography>
           )}
           {characterData.dungeons.map((dun) => (

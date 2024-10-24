@@ -14,6 +14,7 @@ import StaralignFilterButton from "../../atoms/button/StaralignFilter";
 import { VirtuosoGrid } from "react-virtuoso";
 import InvenFilterButton from "../../atoms/button/InvenFilter";
 import Box from "@mui/material/Box";
+import dayjs from "dayjs";
 
 function StaralignDashboard({
   allCharacters,
@@ -30,11 +31,17 @@ function StaralignDashboard({
         staralignStatusFilter.includes(getStep(getNumber(char), staralign)) &&
         invenStatusFilter.includes(getInvenStatus(allCharacters, char, inven))
     )
-    .sort((a, b) =>
-      getShortName(t(a.code), i18n.language).localeCompare(
+    .sort((a, b) => {
+      const aIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(a.updateDate));
+      const bIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(b.updateDate));
+      
+      if (aIsRecent && !bIsRecent) return -1;
+      if (!aIsRecent && bIsRecent) return 1;
+      
+      return getShortName(t(a.code), i18n.language).localeCompare(
         getShortName(t(b.code), i18n.language)
-      )
-    );
+      );
+    });
 
   return (
     <Container sx={DashboardWrapperSx}>

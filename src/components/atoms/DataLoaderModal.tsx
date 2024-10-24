@@ -49,13 +49,16 @@ function DataLoaderModal() {
         const body = {
           characterIds: charIds,
         };
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/buddy/partners`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/buddy/partners`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          }
+        );
         const buddyList = (
           (await res.json()) as APIResponse<IDInfo[]>
         ).data.map((i) => getNumber(i));

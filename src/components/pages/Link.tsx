@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import BuyMeACoffeeButton from "../atoms/button/Coffee";
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from "@mui/icons-material/Email";
 
 const LinkData = [
   {
@@ -65,18 +65,17 @@ function LinkPage() {
         </Button>
       ))}
       <BuyMeACoffeeButton />
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={{ width: 200, pl: 3, display: "flex" }}
-          href="mailto:haulrest@gmail.com"
-          startIcon={<EmailIcon />}
-        >
-
-          <Typography variant="body1" fontWeight="bold" sx={{ flexGrow: 1 }}>
-            Report (e-mail)
-          </Typography>
-        </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        sx={{ width: 200, pl: 3, display: "flex" }}
+        href="mailto:haulrest@gmail.com"
+        startIcon={<EmailIcon />}
+      >
+        <Typography variant="body1" fontWeight="bold" sx={{ flexGrow: 1 }}>
+          Report (e-mail)
+        </Typography>
+      </Button>
     </Box>
   );
 }

@@ -1,4 +1,5 @@
 import { AECharacterStyles, InvenStatus, ManifestStatus } from "../constants/enum";
+import dayjs from "dayjs";
 
 export const getShortName = (name: string, lang: string) => {
   const arr = name.split(" ");
@@ -42,14 +43,13 @@ export const getInvenStatus = (
 ): InvenStatus => {
   const id = getNumber(character);
   if (inven.includes(id)) return InvenStatus.owned;
-  const related = relatedCharacters.filter(
+  else if (character.style === AECharacterStyles.four) return InvenStatus.notOwned;
+  const related = character.style === AECharacterStyles.normal ? relatedCharacters.filter(
     (c) => c.code === character.code || c.alterCharacter === character.code
-  )
-  if (related.filter((c) => inven.includes(getNumber(c))).length > 0 && character.style !== AECharacterStyles.four) {
-    return InvenStatus.ccRequired;
-  } else {
-    return InvenStatus.notOwned;
-  }
+  ) : relatedCharacters.filter((c) => c.code === character.code);
+
+  const changable = related.filter((c) => inven.includes(getNumber(c)));
+  return changable.length > 0 ? InvenStatus.ccRequired : InvenStatus.notOwned;
 };
 
 /**
@@ -92,3 +92,15 @@ export const getManifestStatus = (
     }
   }
 }
+
+/**
+ * 대상 날짜가 최근에 해당되는지 확인합니다.
+ * 
+ * @param {Date | undefined} date 확인 대상 날짜
+ * @param {number} weeks 최근으로 간주할 주 수 (기본값: 3)
+ * @return {boolean} 최근 업데이트 여부
+ */
+export const isUpdatedInWeeks = (date: Date | undefined, weeks: number = 3): boolean => {
+  if (!date) return false;
+  return dayjs().subtract(weeks, "week").isBefore(dayjs(date));
+};
