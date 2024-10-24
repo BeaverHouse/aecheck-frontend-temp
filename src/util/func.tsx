@@ -43,14 +43,13 @@ export const getInvenStatus = (
 ): InvenStatus => {
   const id = getNumber(character);
   if (inven.includes(id)) return InvenStatus.owned;
-  const related = relatedCharacters.filter(
+  else if (character.style === AECharacterStyles.four) return InvenStatus.notOwned;
+  const related = character.style === AECharacterStyles.normal ? relatedCharacters.filter(
     (c) => c.code === character.code || c.alterCharacter === character.code
-  )
-  if (related.filter((c) => inven.includes(getNumber(c))).length > 0 && character.style !== AECharacterStyles.four) {
-    return InvenStatus.ccRequired;
-  } else {
-    return InvenStatus.notOwned;
-  }
+  ) : relatedCharacters.filter((c) => c.code === character.code);
+
+  const changable = related.filter((c) => inven.includes(getNumber(c)));
+  return changable.length > 0 ? InvenStatus.ccRequired : InvenStatus.notOwned;
 };
 
 /**
