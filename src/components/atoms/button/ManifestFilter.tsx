@@ -10,7 +10,7 @@ function ManifestFilterButton() {
 
   return (
     <ToggleButtonGroup
-        color="primary"
+      color="primary"
       size="small"
       value={manifestStatusFilter}
       onChange={(_, v) => setManifestStatusFilter(v as ManifestStatus[])}

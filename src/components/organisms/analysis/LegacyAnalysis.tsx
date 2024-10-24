@@ -315,8 +315,6 @@ const LegacyAnalysis: React.FC<AnalysisProps> = ({ allCharacters }) => {
                         <img
                           src={`${import.meta.env.VITE_CDN_URL}/icon/${p}.png`}
                           alt={p}
-                          width={30}
-                          height={30}
                           style={{
                             width: 30,
                             height: 30,
