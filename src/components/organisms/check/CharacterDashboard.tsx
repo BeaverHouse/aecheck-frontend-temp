@@ -91,15 +91,19 @@ function CharacterDashboard({
    * 3. Remove buddy
    */
   const removeSingleInven = (char: CharacterSummary) => {
-    console.log("remove", char.id);
     const removeCharIds = [getNumber(char)];
+
+    const isFourStar = char.style === AECharacterStyles.four;
     const NSChar = allCharacters.find(
       (c) => c.code === char.code && c.style === AECharacterStyles.normal
     );
-    if (NSChar && char.style === AECharacterStyles.four) {
+
+    if (isFourStar && NSChar) {
       removeCharIds.push(getNumber(NSChar));
     }
+
     setInven(inven.filter((i) => !removeCharIds.includes(i)));
+
     if (char.buddy) {
       setBuddy(buddy.filter((b) => b !== getNumber(char.buddy!)));
     }
