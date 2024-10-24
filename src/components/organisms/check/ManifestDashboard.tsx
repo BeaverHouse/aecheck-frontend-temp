@@ -15,6 +15,7 @@ import ManifestFilterButton from "../../atoms/button/ManifestFilter";
 import Button from "@mui/material/Button";
 import { VirtuosoGrid } from "react-virtuoso";
 import Swal from "sweetalert2";
+import dayjs from "dayjs";
 
 function ManifestDashboard({
   allCharacters,
@@ -31,11 +32,17 @@ function ManifestDashboard({
         getManifestStatus(allCharacters, char, inven, manifest)
       )
     )
-    .sort((a, b) =>
-      getShortName(t(a.code), i18n.language).localeCompare(
+    .sort((a, b) => {
+      const aIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(a.updateDate));
+      const bIsRecent = dayjs().subtract(3, "week").isBefore(dayjs(b.updateDate));
+      
+      if (aIsRecent && !bIsRecent) return -1;
+      if (!aIsRecent && bIsRecent) return 1;
+      
+      return getShortName(t(a.code), i18n.language).localeCompare(
         getShortName(t(b.code), i18n.language)
-      )
-    );
+      );
+    });
 
   const checkAll = () => {
     Swal.fire({
