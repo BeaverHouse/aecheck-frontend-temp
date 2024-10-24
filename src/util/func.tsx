@@ -1,4 +1,5 @@
 import { AECharacterStyles, InvenStatus, ManifestStatus } from "../constants/enum";
+import dayjs from "dayjs";
 
 export const getShortName = (name: string, lang: string) => {
   const arr = name.split(" ");
@@ -92,3 +93,15 @@ export const getManifestStatus = (
     }
   }
 }
+
+/**
+ * 대상 날짜가 최근에 해당되는지 확인합니다.
+ * 
+ * @param {Date | undefined} date 확인 대상 날짜
+ * @param {number} weeks 최근으로 간주할 주 수 (기본값: 3)
+ * @return {boolean} 최근 업데이트 여부
+ */
+export const isUpdatedInWeeks = (date: Date | undefined, weeks: number = 3): boolean => {
+  if (!date) return false;
+  return dayjs().subtract(weeks, "week").isBefore(dayjs(date));
+};

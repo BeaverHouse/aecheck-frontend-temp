@@ -5,7 +5,7 @@ import CircularProgress, {
 } from "@mui/material/CircularProgress";
 import useCheckStore from "../../../store/useCheckStore";
 import { useTranslation } from "react-i18next";
-import { getNumber, getStep } from "../../../util/func";
+import { getNumber, getStep, isUpdatedInWeeks } from "../../../util/func";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -14,7 +14,6 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import CharacterAvatar from "../../atoms/character/Avatar";
 import { FlexCenter } from "../../../constants/style";
-import dayjs from "dayjs";
 import useModalStore from "../../../store/useModalStore";
 import { ModalType } from "../../../constants/enum";
 
@@ -58,9 +57,7 @@ const CharacterStaralign: React.FC<CharacterSummary> = (info) => {
 
   const id = getNumber(info);
   const currentStep = getStep(id, staralign);
-  const isRecent =
-    info.lastUpdated &&
-    dayjs().subtract(3, "week").isBefore(dayjs(info.lastUpdated));
+  const isRecent = isUpdatedInWeeks(info.lastUpdated);
   const changeManifest = (step: number) => {
     const changedStep = currentStep + step;
     const changedStaralign = changedStep * 10000 + id;

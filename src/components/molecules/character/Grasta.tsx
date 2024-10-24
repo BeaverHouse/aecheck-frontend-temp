@@ -7,8 +7,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import styled from "@mui/material/styles/styled";
 import Box from "@mui/material/Box";
-import { getNumber, getStep } from "../../../util/func";
-import dayjs from "dayjs";
+import { getNumber, getStep, isUpdatedInWeeks } from "../../../util/func";
 import CharacterAvatar from "../../atoms/character/Avatar";
 import useModalStore from "../../../store/useModalStore";
 import { ModalType } from "../../../constants/enum";
@@ -25,9 +24,7 @@ const CharacterGrasta: React.FC<CharacterSummary> = (info) => {
   const { t } = useTranslation();
 
   const id = getNumber(info);
-  const isRecent =
-    info.lastUpdated &&
-    dayjs().subtract(3, "week").isBefore(dayjs(info.lastUpdated));
+  const isRecent = isUpdatedInWeeks(info.lastUpdated);
   const currentStep = getStep(id, grasta);
 
   const changeGrasta = (step: number) => {

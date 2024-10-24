@@ -5,7 +5,7 @@ import CircularProgress, {
 } from "@mui/material/CircularProgress";
 import useCheckStore from "../../../store/useCheckStore";
 import { useTranslation } from "react-i18next";
-import { getNumber, getStep } from "../../../util/func";
+import { getNumber, getStep, isUpdatedInWeeks } from "../../../util/func";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -15,7 +15,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import CharacterAvatar from "../../atoms/character/Avatar";
 import { ManifestStatus, ModalType } from "../../../constants/enum";
 import { FlexCenter } from "../../../constants/style";
-import dayjs from "dayjs";
 import useModalStore from "../../../store/useModalStore";
 
 interface CharacterManifestProps {
@@ -69,9 +68,7 @@ const CharacterManifest: React.FC<CharacterManifestProps> = ({
   const manifestAvailable =
     status === ManifestStatus.incompleted ||
     status === ManifestStatus.completed;
-  const isRecent =
-    info.lastUpdated &&
-    dayjs().subtract(3, "week").isBefore(dayjs(info.lastUpdated));
+  const isRecent = isUpdatedInWeeks(info.lastUpdated);
 
   const changeManifest = (step: number) => {
     const changedStep = currentStep + step;

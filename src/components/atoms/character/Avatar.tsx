@@ -1,11 +1,10 @@
 import React from "react";
 import useCheckStore from "../../../store/useCheckStore";
 import { useTranslation } from "react-i18next";
-import { getNumber, getShortName, getStep } from "../../../util/func";
+import { getNumber, getShortName, getStep, isUpdatedInWeeks } from "../../../util/func";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { AECharacterStyles } from "../../../constants/enum";
-import dayjs from "dayjs";
 import { FlexCenter } from "../../../constants/style";
 
 interface CharacterCheckProps {
@@ -27,7 +26,7 @@ const CharacterAvatar: React.FC<CharacterCheckProps> = ({
 
   const id = getNumber(info);
   const checked = inven.includes(id);
-  const isRecent = dayjs().subtract(3, "week").isBefore(dayjs(info.updateDate));
+  const isRecent = isUpdatedInWeeks(info.updateDate);
 
   const currentGrastaStep = getStep(id, grasta);
   const currentManifestStep = getStep(id, manifest);
